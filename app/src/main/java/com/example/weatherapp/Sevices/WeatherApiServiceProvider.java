@@ -4,9 +4,12 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.weatherapp.Events.WeatherEvents;
 import com.example.weatherapp.MainActivity;
 import com.example.weatherapp.Model.Currently;
 import com.example.weatherapp.Model.Weather;
+
+import org.greenrobot.eventbus.EventBus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,12 +36,28 @@ public class WeatherApiServiceProvider {
     }
 
 
-    public void getWeather(Callback callback) {
+    public void getWeather() {
         WeatherAPiServices weatherAPiServices = getretrofit().create(WeatherAPiServices.class);
 
         Call<Weather> callapi = weatherAPiServices.getWeatherData();
 
-        callapi.enqueue(callback);
+        callapi.enqueue(new Callback<Weather>() {
+            @Override
+            public void onResponse(Call<Weather> call, Response<Weather> response) {
+                Weather weather=response.body();
+
+                Currently currently=weather.getCurrently();
+
+
+                EventBus.getDefault().post(new WeatherEvents(weather));
+
+            }
+
+            @Override
+            public void onFailure(Call<Weather> call, Throwable t) {
+
+            }
+        });
 
 
     }

@@ -46,4 +46,9 @@ dependencies {
     // ButterKnife for binding
     implementation 'com.jakewharton:butterknife:10.2.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+
+
+    //Event Bus for Data Parsing
+    implementation("org.greenrobot:eventbus:3.3.1")
 }
