@@ -4,17 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/weatherimage"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/TemperatureTvid"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="#03A9F4"
-        android:textSize="70dp"
-        android:textStyle="bold" />
+        android:layout_marginTop="30dp"
+
+        >
+
+        <TextView
+            android:id="@+id/TemperatureTvid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:text="70"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="60dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/weatherimageid"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_toRightOf="@id/TemperatureTvid"
+            android:src="@drawable/fog"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/textsummaryid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weatherimageid"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_toRightOf="@id/TemperatureTvid"
+            android:text="Cloudy"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

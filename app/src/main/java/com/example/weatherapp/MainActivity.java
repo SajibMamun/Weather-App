@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.TemperatureTvid)
     TextView temptextView;
+    @BindView(R.id.textsummaryid)
+    TextView summaryid;
+    @BindView(R.id.weatherimageid)
+    ImageView weatherimageid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
