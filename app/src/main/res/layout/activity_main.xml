@@ -11,9 +11,10 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
 
-        >
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
 
         <TextView
             android:id="@+id/TemperatureTvid"
@@ -43,8 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/weatherimageid"
             android:layout_alignParentEnd="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_toRightOf="@id/TemperatureTvid"
             android:text="Cloudy"
             android:textColor="@color/white"

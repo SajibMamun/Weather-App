@@ -19,6 +19,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -41,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getSupportActionBar().hide();
 
         ButterKnife.bind(this);
-
 
         getweatherservices();
 
@@ -74,31 +76,42 @@ public class MainActivity extends AppCompatActivity {
     public void onWeatherEvent(WeatherEvents weatherEvents) {
         // Do something
 
-      Currently currently=  weatherEvents.getWeather().getCurrently();
+        Currently currently = weatherEvents.getWeather().getCurrently();
 
-      temptextView.setText(String.valueOf(currently.getTemperature()));
+        temptextView.setText(String.valueOf(currently.getTemperature()));
+        summaryid.setText(currently.getSummary());
+
+
+        Map<String, Integer> iconMap = new HashMap<>();
+        iconMap.put("clear-day", R.drawable.clearday);
+        iconMap.put("clear-night", R.drawable.clearnight);
+        iconMap.put("rain", R.drawable.rain);
+        iconMap.put("snow", R.drawable.snow);
+        iconMap.put("sleet", R.drawable.sleet);
+        iconMap.put("wind", R.drawable.wind);
+        iconMap.put("fog", R.drawable.fog);
+        iconMap.put("cloudy", R.drawable.cloudy);
+        iconMap.put("partly-cloudy-day", R.drawable.partlycloudyday);
+        iconMap.put("partly-cloudy-night", R.drawable.partlycloudynight);
+        iconMap.put("thunderstorm", R.drawable.thunderstrom);
+
+        weatherimageid.setImageResource(iconMap.get(currently.getIcon()));
+
 
     }
 
     //this event to find error
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFailureEvent(ErrorEvents Errorevent) {
-      Toast.makeText(this,Errorevent.getErrorMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, Errorevent.getErrorMessage(), Toast.LENGTH_SHORT).show();
 
     }
-
-
-
-
-
 
 
     private void getweatherservices() {
         WeatherApiServiceProvider weatherApiServiceProvider = new WeatherApiServiceProvider();
         weatherApiServiceProvider.getWeather();
     }
-
-
 
 
 }
