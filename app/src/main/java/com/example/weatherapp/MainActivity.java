@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.weatherapp.Events.ErrorEvents;
 import com.example.weatherapp.Events.WeatherEvents;
 import com.example.weatherapp.Model.Currently;
 import com.example.weatherapp.Model.Weather;
@@ -62,13 +63,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //this is for get data
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void findweatherevents(WeatherEvents weatherEvents) {
+    public void onWeatherEvent(WeatherEvents weatherEvents) {
         // Do something
 
       Currently currently=  weatherEvents.getWeather().getCurrently();
 
       temptextView.setText(String.valueOf(currently.getTemperature()));
+
+    }
+
+    //this event to find error
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFailureEvent(ErrorEvents Errorevent) {
+      Toast.makeText(this,Errorevent.getErrorMessage(),Toast.LENGTH_SHORT).show();
 
     }
 

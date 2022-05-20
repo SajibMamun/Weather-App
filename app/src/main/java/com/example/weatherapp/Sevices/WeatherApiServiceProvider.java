@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.weatherapp.Events.ErrorEvents;
 import com.example.weatherapp.Events.WeatherEvents;
 import com.example.weatherapp.MainActivity;
 import com.example.weatherapp.Model.Currently;
@@ -44,17 +45,25 @@ public class WeatherApiServiceProvider {
         callapi.enqueue(new Callback<Weather>() {
             @Override
             public void onResponse(Call<Weather> call, Response<Weather> response) {
-                Weather weather=response.body();
 
-                Currently currently=weather.getCurrently();
+                if (response.code() == 200) {
+                    Weather weather = response.body();
+                    Currently currently = weather.getCurrently();
+                    EventBus.getDefault().post(new WeatherEvents(weather));
+                } else {
+                    EventBus.getDefault().post(new ErrorEvents("No Weather Data Available"));
 
-
-                EventBus.getDefault().post(new WeatherEvents(weather));
+                }
 
             }
 
             @Override
             public void onFailure(Call<Weather> call, Throwable t) {
+
+                Log.e("s", "onFailure: Unable to connect the weather server");
+
+                EventBus.getDefault().post(new ErrorEvents("Unable to connect the weather server"));
+
 
             }
         });
